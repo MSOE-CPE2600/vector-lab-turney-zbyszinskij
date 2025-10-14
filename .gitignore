@@ -1,0 +1,8 @@
+# dependancies
+*.d
+
+# object files
+*.o
+
+# the exe
+vect_calc

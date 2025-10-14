@@ -123,6 +123,7 @@ int main(int argc, char* argv[]){
                     else if(index2 != -1){
                         float scale = atof(token[0]);
                         answer = scale_mult(scale, &vectors[index2]);
+                        strcpy(answer.name, "ans");
                         vect_info(&answer);
                     } 
                     else{
