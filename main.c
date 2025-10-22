@@ -14,16 +14,15 @@
 #include "vector.h"
 #include "list_ops.h"
 
-#define VECT_LIM 10
-
-
 int main(int argc, char* argv[]){
+
+    int vect_array_size = 10;
 
     char input[50];
     char token[5][15]; 
-    vector vectors[VECT_LIM];
+    vector *vectors = malloc(vect_array_size * sizeof(vector));
 
-    clear(vectors, VECT_LIM);
+    clear(vectors, vect_array_size);
     int num_vects = 0;
 
     help_menu();
@@ -60,11 +59,17 @@ int main(int argc, char* argv[]){
                 help_menu();
             } 
             else if(!strcmp(token[0], "clear")){
-                clear(vectors, VECT_LIM);
+                clear(vectors, vect_array_size);
                 num_vects = 0;
             } 
             else if(!strcmp(token[0], "list")){
-                list_vects(vectors, VECT_LIM);
+                list_vects(vectors, vect_array_size);
+            }
+            else if(!strcmp(token[0], "save")){
+                //Save file logic will go here
+            }
+            else if(!strcmp(token[0], "load")){
+                //Load file logic will go here
             } 
             else{
 
@@ -141,7 +146,7 @@ int main(int argc, char* argv[]){
             vector *answer = NULL;
 
             if(ans_index == -1){
-                if(num_vects < VECT_LIM){
+                if(num_vects < vect_array_size){
                     answer = &vectors[num_vects];
                     strcpy(vectors[num_vects].name, token[0]);
                     num_vects++;
@@ -151,12 +156,40 @@ int main(int argc, char* argv[]){
                 answer = &vectors[ans_index];
             }
 
+            if (answer == NULL){
+
+                if (num_vects >= vect_array_size){
+                    int new_array_size = vect_array_size + 10;
+                    vector* temp_array = realloc(vectors,  new_array_size * sizeof(vector));
+                    if (temp_array != NULL){
+                        vectors = temp_array;
+                        vect_array_size = new_array_size;
+                    }
+                    else{
+                        printf("Failed to reallocate memory");
+                    }
+                }
+
+                ans_index = find_vect(vectors, token[0], num_vects);
+
+                if(ans_index == -1){
+                    if(num_vects < vect_array_size){
+                        answer = &vectors[num_vects];
+                        strcpy(vectors[num_vects].name, token[0]);
+                        num_vects++;
+                    }
+                } 
+                else{
+                    answer = &vectors[ans_index];
+                }
+            }
+
              
             if (answer!= NULL){
                 float x = atof(token[2]);
                 float y = atof(token[3]);
 
-                if(num_vects <= VECT_LIM){ 
+                if(num_vects <= vect_array_size){ 
 
                     if(!(x == 0 && y == 0) && !strcmp(token[1], "=")){
                         answer->x = x;
@@ -170,7 +203,7 @@ int main(int argc, char* argv[]){
                 }
             }
             else{
-                printf("only %d vects can be saved\n", VECT_LIM);
+                printf("Something went wrong\n");
             }
 
         } 
@@ -183,7 +216,7 @@ int main(int argc, char* argv[]){
             vector *answer = NULL;
 
             if(ans_index == -1){
-                if(num_vects < VECT_LIM){
+                if(num_vects < vect_array_size){
                     answer = &vectors[num_vects];
                     strcpy(vectors[num_vects].name, token[0]);
                     num_vects++;
@@ -193,9 +226,37 @@ int main(int argc, char* argv[]){
                 answer = &vectors[ans_index];
             }
 
+            if (answer == NULL){
+                if (num_vects >= vect_array_size){
+                    int new_array_size = vect_array_size + 10;
+                    vector* temp_array = realloc(vectors,  new_array_size * sizeof(vector));
+                    if (temp_array != NULL){
+                        vectors = temp_array;
+                        vect_array_size = new_array_size;
+                        printf("size: %d\n", vect_array_size);
+                    }
+                    else{
+                        printf("Failed to reallocate memory");
+                    }
+                }
+
+                ans_index = find_vect(vectors, token[0], num_vects);
+
+                if(ans_index == -1){
+                    if(num_vects < vect_array_size){
+                        answer = &vectors[num_vects];
+                        strcpy(vectors[num_vects].name, token[0]);
+                        num_vects++;
+                    }
+                } 
+                else{
+                    answer = &vectors[ans_index];
+                }
+            }
+
             if(answer != NULL){
 
-                if(num_vects <= VECT_LIM){
+                if(num_vects <= vect_array_size){
                 
                     if(!strcmp(token[1], "=") && index1 == -1 && index2 == -1){
                         float x = atof(token[2]);
@@ -254,7 +315,7 @@ int main(int argc, char* argv[]){
 
             }
             else{
-                printf("Only %d vects can be saved in the list\n", VECT_LIM);
+                printf("Something went wrong\n");
             }
         } 
         else{
