@@ -70,8 +70,8 @@ Once compiled and run, the program enters an interactive loop, prompting you wit
 | `list` | Lists all vectors currently stored in the system. | `list` |
 | `clear` | Clears all stored vectors, resetting the list. | `clear` |
 | `[name]` | Prints the $x, y, z$ coordinates of a specific vector. | `v1` |
-| `save` | *(Placeholder - not currently implemented)* | `save` |
-| `load` | *(Placeholder - not currently implemented)* | `load` |
+| `save` | Saves vectors in list to a csv file named by user | `save test_data` |
+| `load` | Reads csv named by user and populates the vector list with the contents | `load test_data` |
 
 ### Declaring New Vectors
 
@@ -107,10 +107,10 @@ You can save the result of an operation directly into a new or existing vector u
 
 ## Building from Source
 
-To compile and link all source files, you can use a single GCC command:
+Makefile attached to compile with a single command:
 
 ```bash
-gcc main.c list_ops.c vector.c -o vect_calc
+make
 ```
 
 To run the compiled program:
