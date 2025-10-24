@@ -5,6 +5,7 @@
 * Section: 111
 * Date: 10/1/2025
 * Description: Main program
+* Compile instructions: Makefile
 */
 
 #include <stdio.h>
@@ -54,7 +55,7 @@ int main(int argc, char* argv[]){
 
         if(token_index == 0){
 
-            //Check for commands first
+            //Check for commands
             if(!strcmp(token[0], "help")){
                 help_menu();
             } 
@@ -65,12 +66,6 @@ int main(int argc, char* argv[]){
             else if(!strcmp(token[0], "list")){
                 list_vects(vectors, vect_array_size);
             }
-            else if(!strcmp(token[0], "save")){
-                //Save file logic will go here
-            }
-            else if(!strcmp(token[0], "load")){
-                //Load file logic will go here
-            } 
             else{
 
                 int index = find_vect(vectors, token[0], num_vects);
@@ -83,7 +78,69 @@ int main(int argc, char* argv[]){
                 }
 
             }
-        } 
+        }
+        else if (token_index == 1){
+            if(!strcmp(token[0], "save")){
+
+                FILE *save_file;
+                
+                save_file = fopen(strcat(token[1], ".csv"), "w");
+
+                for(int i = 0; i < num_vects; i++){
+                    vector save_vector = vectors[i];
+                    if (i != num_vects - 1){
+                        fprintf(save_file, "%s, %f, %f, %f\n",
+                            save_vector.name, save_vector.x, save_vector.y, save_vector.z);
+                    }
+                    else{
+                        fprintf(save_file, "%s, %f, %f, %f",
+                        save_vector.name, save_vector.x, save_vector.y, save_vector.z);
+                    }
+                }
+
+                fclose(save_file);
+
+            }
+            else if(!strcmp(token[0], "load")){
+                FILE *load_file = fopen(strcat(token[1], ".csv"), "r");
+                if(load_file != NULL){
+                    clear(vectors, vect_array_size);
+                    num_vects = 0;
+                    int line_index = 0;
+                    while(feof(load_file) == 0){
+                        fgets(input, 50, load_file);
+                        token_index = 0;
+                        token_char = strtok(input, ",");
+                        strcpy(token[token_index], token_char);
+                        while(token_char != NULL && token_index < 5){
+                            token_char = strtok(NULL, ",");
+                            if(token_char != NULL){
+                                token_index++;
+                                strcpy(token[token_index], token_char);
+                            }
+                        }
+                    // remove new line char from last token
+                    token[token_index][strlen(token[token_index])-1] = '\0';
+                    float x = atof(token[1]);
+                    float y = atof(token[2]);
+                    float z = atof(token[3]);
+                    if(num_vects % vect_array_size == 0){
+                        vectors = realloc(vectors, (num_vects + vect_array_size) * sizeof(vector));
+                    }
+                    new_vect((vectors + line_index), token[0], x, y, z);
+                    num_vects++;
+                    line_index++;
+                    }
+                    fclose(load_file);
+                    list_vects(vectors, num_vects);
+                } else{
+                    fprintf(stdout, "file not found\n");
+                }
+            }
+            else{
+                printf("Invalid command\n");
+            }
+        }
         else if(token_index == 2){
 
             int index1 = find_vect(vectors, token[0], num_vects);

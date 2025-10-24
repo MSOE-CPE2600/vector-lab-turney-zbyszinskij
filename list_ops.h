@@ -1,3 +1,12 @@
+/*
+* Filename: list_ops.h
+* Author: James Zbyszinski
+* Class: CPE2600
+* Section: 111
+* Date: 10/1/2025
+* Description: Provides prototypes and brief documentation on functions used in calculator
+*/
+
 #include "vector.h"
 
 #ifndef list_ops_h

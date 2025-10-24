@@ -4,5 +4,8 @@
 # object files
 *.o
 
+# csv files
+*.csv
+
 # the exe
 vect_calc
