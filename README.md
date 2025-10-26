@@ -70,8 +70,8 @@ Once compiled and run, the program enters an interactive loop, prompting you wit
 | `list` | Lists all vectors currently stored in the system. | `list` |
 | `clear` | Clears all stored vectors, resetting the list. | `clear` |
 | `[name]` | Prints the $x, y, z$ coordinates of a specific vector. | `v1` |
-| `save` | Saves vectors in list to a csv file named by user | `save test_data` |
-| `load` | Reads csv named by user and populates the vector list with the contents | `load test_data` |
+| `save` | Saves vectors in list to a file named by user | `save test_data` |
+| `load` | Reads file named by user and populates the vector list with the contents | `load test_data` |
 
 ### Declaring New Vectors
 

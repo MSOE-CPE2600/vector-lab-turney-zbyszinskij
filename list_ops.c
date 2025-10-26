@@ -20,8 +20,8 @@ void help_menu(){
     printf("   Dot Product: .\n   Cross Product: x\n");
     printf(" Commands:\n   quit: quits program\n   list: lists all vectors\n");
     printf("   clear: clears all vectors in the list\n   <vector name>: prints vector info\n");
-    printf("   save <file_name>: write list to a csv file named by the user (.csv added by program)\n");
-    printf("   load <file_name>: load list from a csv named by user (.csv added by program)\n");
+    printf("   save <file_name>: write list to a file named by the user (remember to add the extension)\n");
+    printf("   load <file_name>: load list from a file named by user (remember to add the extension)\n");
     printf(" Declaring new vetors:\n");
     printf("   name = x y: sets vector with given x and y values but set z equal to 0\n");
     printf("   name = x y z: sets vector with given x, y, and z values\n");

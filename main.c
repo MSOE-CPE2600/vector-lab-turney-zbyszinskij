@@ -84,7 +84,7 @@ int main(int argc, char* argv[]){
 
                 FILE *save_file;
                 
-                save_file = fopen(strcat(token[1], ".csv"), "w");
+                save_file = fopen(token[1], "w");
 
                 for(int i = 0; i < num_vects; i++){
                     vector save_vector = vectors[i];
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]){
 
             }
             else if(!strcmp(token[0], "load")){
-                FILE *load_file = fopen(strcat(token[1], ".csv"), "r");
+                FILE *load_file = fopen(token[1], "r");
                 if(load_file != NULL){
                     clear(vectors, vect_array_size);
                     num_vects = 0;
