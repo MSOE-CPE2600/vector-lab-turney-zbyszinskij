@@ -19,6 +19,7 @@
 ## Features
 
   * **Vector Storage:** Stores vectors by a user-defined name.
+    * Dynamic Memory: Dynamically reallocates memory to store as many vectors as their system's memory can handle.
   * **Vector Declaration:** Define new 2D or 3D vectors.
       * `name = x y` (sets $z = 0.0$)
       * `name = x y z`
